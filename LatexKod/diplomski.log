@@ -1,0 +1,618 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.4.4)  13 JUL 2020 00:08
+entering extended mode
+**./diplomski.tex
+(diplomski.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-03-06> (fer.cls
+Document Class: fer 
+(/home/masperado/.miktex/texmfs/install/tex/latex/base/report.cls
+Document Class: report 2019/12/20 v1.4l Standard LaTeX document class
+(/home/masperado/.miktex/texmfs/install/tex/latex/base/size12.clo
+File: size12.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count167
+\c@chapter=\count168
+\c@section=\count169
+\c@subsection=\count170
+\c@subsubsection=\count171
+\c@paragraph=\count172
+\c@subparagraph=\count173
+\c@figure=\count174
+\c@table=\count175
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(/home/masperado/.miktex/texmfs/install/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/home/masperado/.miktex/texmfs/install/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count176
+\Gm@cntv=\count177
+\c@Gm@tempcnt=\count178
+\Gm@bindingoffset=\dimen135
+\Gm@wd@mp=\dimen136
+\Gm@odd@mp=\dimen137
+\Gm@even@mp=\dimen138
+\Gm@layoutwidth=\dimen139
+\Gm@layoutheight=\dimen140
+\Gm@layouthoffset=\dimen141
+\Gm@layoutvoffset=\dimen142
+\Gm@dimlist=\toks16
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/geometry/geometry.cfg))
+(/home/masperado/.miktex/texmfs/install/tex/latex/base/inputenc.sty
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks17
+\inpenc@posthook=\toks18
+)
+(/home/masperado/.miktex/texmfs/install/tex/generic/babel/babel.sty
+Package: babel 2020/03/22 3.42 The Babel package
+
+(/home/masperado/.miktex/texmfs/install/tex/generic/babel/switch.def
+File: switch.def 2020/03/22 3.42 Babel switching mechanism
+)
+*************************************
+* Local config file bblopts.cfg used
+*
+(/home/masperado/.miktex/texmfs/install/tex/latex/arabi/bblopts.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/babel-croatian/croatian.ldf
+Language: croatian 2014/03/31 v1.3m Croatian support from the babel system
+
+(/home/masperado/.miktex/texmfs/install/tex/generic/babel/babel.def
+File: babel.def 2020/03/22 3.42 Babel common definitions
+\babel@savecnt=\count179
+\U@D=\dimen143
+
+(/home/masperado/.miktex/texmfs/install/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count180
+)))
+(/home/masperado/.miktex/texmfs/install/tex/latex/base/fontenc.sty
+Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/graphics/graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/graphics/graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen144
+\Gin@req@width=\dimen145
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks19
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/home/masperado/.miktex/texmfs/install/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2020/01/20 v2.17e AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/home/masperado/.miktex/texmfs/install/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks20
+\ex@=\dimen146
+))
+(/home/masperado/.miktex/texmfs/install/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen147
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count181
+LaTeX Info: Redefining \frac on input line 227.
+\uproot@=\count182
+\leftroot@=\count183
+LaTeX Info: Redefining \overline on input line 389.
+\classnum@=\count184
+\DOTSCASE@=\count185
+LaTeX Info: Redefining \ldots on input line 486.
+LaTeX Info: Redefining \dots on input line 489.
+LaTeX Info: Redefining \cdots on input line 610.
+\Mathstrutbox@=\box45
+\strutbox@=\box46
+\big@size=\dimen148
+LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
+\macc@depth=\count186
+\c@MaxMatrixCols=\count187
+\dotsspace@=\muskip16
+\c@parentequation=\count188
+\dspbrk@lvl=\count189
+\tag@help=\toks21
+\row@=\count190
+\column@=\count191
+\maxfields@=\count192
+\andhelp@=\toks22
+\eqnshift@=\dimen149
+\alignsep@=\dimen150
+\tagshift@=\dimen151
+\tagwidth@=\dimen152
+\totwidth@=\dimen153
+\lineht@=\dimen154
+\@envbody=\toks23
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks24
+LaTeX Info: Redefining \[ on input line 2859.
+LaTeX Info: Redefining \] on input line 2860.
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/caption/caption.sty
+Package: caption 2020/01/03 v3.4h Customizing captions (AR)
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/caption/caption3.sty
+Package: caption3 2020/01/03 v1.8h caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 61.
+\captionmargin=\dimen155
+\captionmargin@=\dimen156
+\captionwidth=\dimen157
+\caption@tempdima=\dimen158
+\caption@indent=\dimen159
+\caption@parindent=\dimen160
+\caption@hangindent=\dimen161
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count193
+\c@continuedfloat=\count194
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip52
+\enit@outerparindent=\dimen162
+\enit@toks=\toks25
+\enit@inbox=\box47
+\enit@count@id=\count195
+\enitdp@description=\count196
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/tocbibind/tocbibind.sty
+Package: tocbibind 2010/10/13 v1.5k extra ToC listings
+Package tocbibind Info: The document has chapter divisions on input line 50.
+
+
+Package tocbibind Note: Using chapter style headings, unless overridden.
+
+) (/home/masperado/.miktex/texmfs/install/tex/latex/psnfss/times.sty
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip53
+\bibsep=\skip54
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count197
+)
+\listindentation=\dimen163
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen164
+\lightrulewidth=\dimen165
+\cmidrulewidth=\dimen166
+\belowrulesep=\dimen167
+\belowbottomsep=\dimen168
+\aboverulesep=\dimen169
+\abovetopsep=\dimen170
+\cmidrulesep=\dimen171
+\cmidrulekern=\dimen172
+\defaultaddspace=\dimen173
+\@cmidla=\count198
+\@cmidlb=\count199
+\@aboverulesep=\dimen174
+\@belowrulesep=\dimen175
+\@thisruleclass=\count266
+\@lastruleclass=\count267
+\@thisrulewidth=\dimen176
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/tools/tabularx.sty
+Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/tools/array.sty
+Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
+\col@sep=\dimen177
+\ar@mcellbox=\box48
+\extrarowheight=\dimen178
+\NC@list=\toks26
+\extratabsurround=\skip55
+\backup@length=\skip56
+\ar@cellbox=\box49
+)
+\TX@col@width=\dimen179
+\TX@old@table=\dimen180
+\TX@old@col=\dimen181
+\TX@target=\dimen182
+\TX@delta=\dimen183
+\TX@cols=\count268
+\TX@ftn=\toks27
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/listings/listings.sty
+\lst@mode=\count269
+\lst@gtempboxa=\box50
+\lst@token=\toks28
+\lst@length=\count270
+\lst@currlwidth=\dimen184
+\lst@column=\count271
+\lst@pos=\count272
+\lst@lostspace=\dimen185
+\lst@width=\dimen186
+\lst@newlines=\count273
+\lst@lineno=\count274
+\lst@maxwidth=\dimen187
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count275
+\lst@skipnumbers=\count276
+\lst@framebox=\box51
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count277
+\c@ALC@line=\count278
+\c@ALC@rem=\count279
+\c@ALC@depth=\count280
+\ALC@tlm=\skip57
+\algorithmicindent=\skip58
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2017/07/18 v5.2 algorithms environments
+\c@AlgoLine=\count281
+\algocf@hangindent=\skip59
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count282
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+\skiptotal=\skip60
+\skiplinenumber=\skip61
+\skiprule=\skip62
+\skiphlne=\skip63
+\skiptext=\skip64
+\skiplength=\skip65
+\algomargin=\skip66
+\skipalgocfslide=\skip67
+\algowidth=\dimen188
+\inoutsize=\dimen189
+\inoutindent=\dimen190
+\interspacetitleruled=\dimen191
+\interspacealgoruled=\dimen192
+\interspacetitleboxruled=\dimen193
+\algocf@ruledwidth=\skip68
+\algocf@inoutbox=\box52
+\algocf@inputbox=\box53
+\AlCapSkip=\skip69
+\AlCapHSkip=\skip70
+\algoskipindent=\skip71
+\algocf@nlbox=\box54
+\algocf@hangingbox=\box55
+\algocf@untilbox=\box56
+\algocf@skipuntil=\skip72
+\algocf@capbox=\box57
+\algocf@lcaptionbox=\skip73
+\algoheightruledefault=\skip74
+\algoheightrule=\skip75
+\algotitleheightruledefault=\skip76
+\algotitleheightrule=\skip77
+\c@algocfline=\count283
+\c@algocfproc=\count284
+\c@algocf=\count285
+\algocf@algoframe=\box58
+\algocf@algobox=\box59
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/cancel/cancel.sty
+Package: cancel 2013/04/12 v2.2 Cancel math terms
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/l3backend/l3backend-pdfmode.d
+ef
+File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count286
+\l__pdf_internal_box=\box60
+) (diplomski.aux)
+\openout1 = `diplomski.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 15
+.
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/psnfss/t1ptm.fd
+File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(99.58464pt, 412.56497pt, 85.35826pt)
+* v-part:(T,H,B)=(85.35826pt, 674.33032pt, 85.35826pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=412.56497pt
+* \textheight=674.33032pt
+* \oddsidemargin=27.31465pt
+* \evensidemargin=27.31465pt
+* \topmargin=-23.91173pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/home/masperado/.miktex/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count287
+\scratchdimen=\dimen194
+\scratchbox=\box61
+\nofMPsegments=\count288
+\nofMParguments=\count289
+\everyMPshowfont=\toks29
+\MPscratchCnt=\count290
+\MPscratchDim=\dimen195
+\MPnumerator=\count291
+\makeMPintoPDFobject=\count292
+\everyMPtoPDFconversion=\toks30
+)
+(/home/masperado/.miktex/texmfs/install/tex/latex/epstopdf-pkg/epstopdf-base.st
+y
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: listings package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\c@lstlisting=\count293
+ [3
+
+{/home/masperado/.miktex/texmfs/data/pdftex/config/pdftex.map}]
+(diplomski.toc
+LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [4
+
+])
+\tf@toc=\write3
+\openout3 = `diplomski.toc'.
+
+
+[5]
+Poglavlje 1.
+[1
+
+] [2]
+Poglavlje 2.
+<img/agent-environment.png, id=20, 572.1375pt x 200.75pt>
+File: img/agent-environment.png Graphic file (type png)
+<use img/agent-environment.png>
+Package pdftex.def Info: img/agent-environment.png  used on input line 65.
+(pdftex.def)             Requested size: 412.56497pt x 144.76042pt.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 69
+.
+(/home/masperado/.miktex/texmfs/install/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+) [3
+
+]
+Overfull \hbox (0.13306pt too wide) in paragraph at lines 77--78
+[]\T1/ptm/m/n/12 Pravi pro-boj u pot-por-nom u£e-nju se do-go-dio kada su po-£e
+li umjesto funk-cije aprok-
+ []
+
+[4 <./img/agent-environment.png>] [5] [6] [7]
+Overfull \hbox (0.90099pt too wide) in paragraph at lines 252--253
+[]\T1/ptm/m/n/12 Ove sve funk-cije za-do-vo-lja-vaju re-kur-zivne Bel-l-ma-nove
+ jed-nadºbe (Bel-l-man, 1952): 
+ []
+
+[8]
+<img/podjela.png, id=51, 1019.81pt x 547.04375pt>
+File: img/podjela.png Graphic file (type png)
+<use img/podjela.png>
+Package pdftex.def Info: img/podjela.png  used on input line 286.
+(pdftex.def)             Requested size: 412.56497pt x 221.30943pt.
+ [9 <./img/podjela.png>]
+Poglavlje 3.
+[10
+
+] [11]
+<img/atari.png, id=63, 1084.05pt x 722.7pt>
+File: img/atari.png Graphic file (type png)
+<use img/atari.png>
+Package pdftex.def Info: img/atari.png  used on input line 321.
+(pdftex.def)             Requested size: 412.56497pt x 275.03687pt.
+ [12 <./img/atari.png (PNG copy)>] [13]
+Poglavlje 4.
+
+Overfull \hbox (28.4451pt too wide) detected at line 359
+[]
+ []
+
+[14
+
+]
+Overfull \hbox (17.62482pt too wide) detected at line 400
+[][] 
+ []
+
+[15] [16] [17]
+Overfull \hbox (17.62482pt too wide) detected at line 462
+[][] 
+ []
+
+
+Overfull \hbox (1.28352pt too wide) in paragraph at lines 470--471
+[]\T1/ptm/m/n/12 Algoritam prok-si-malne op-ti-mi-za-cije po-li-tike taj pro-bl
+em rje-²ava bez uvo-že-nja ogra-
+ []
+
+[18]
+Overfull \hbox (17.62482pt too wide) detected at line 533
+[][] 
+ []
+
+[19] [20]
+Poglavlje 5.
+<img/jaco.png, id=95, 376.40625pt x 280.04625pt>
+File: img/jaco.png Graphic file (type png)
+<use img/jaco.png>
+Package pdftex.def Info: img/jaco.png  used on input line 552.
+(pdftex.def)             Requested size: 412.56497pt x 306.97069pt.
+[21
+
+
+] [22 <./img/jaco.png>]
+<img/bezprepreka.png, id=104, 360.34625pt x 264.99pt>
+File: img/bezprepreka.png Graphic file (type png)
+<use img/bezprepreka.png>
+Package pdftex.def Info: img/bezprepreka.png  used on input line 577.
+(pdftex.def)             Requested size: 412.56497pt x 303.38966pt.
+<img/spreprekama.png, id=105, 361.35pt x 266.9975pt>
+File: img/spreprekama.png Graphic file (type png)
+<use img/spreprekama.png>
+Package pdftex.def Info: img/spreprekama.png  used on input line 584.
+(pdftex.def)             Requested size: 412.56497pt x 304.84065pt.
+ [23] [24 <./img/bezprepreka.png> <./img/spreprekama.png>]
+Poglavlje 6.
+[25
+
+
+] [26]
+(/home/masperado/.miktex/texmfs/install/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 6
+43.
+
+(/home/masperado/.miktex/texmfs/install/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+) [27]
+[28] [29] [30] [31] [32]
+Overfull \hbox (12.23935pt too wide) in paragraph at lines 896--897
+[][][][][][][][][][][][][] 
+ []
+
+[33] [34] [35] [36]
+Poglavlje 7.
+[37
+
+
+] (diplomski.bbl [38] [39
+
+]) [40] [41] [42] (diplomski.aux) ) 
+Here is how much of TeX's memory you used:
+ 8979 strings out of 480932
+ 127843 string characters out of 2904558
+ 589062 words of memory out of 3000000
+ 24693 multiletter control sequences out of 15000+200000
+ 585893 words of font info for 91 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 49i,19n,46p,1053b,1626s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/home/masperado/.miktex/texmfs/install/font
+s/enc/dvips/base/8r.enc}</home/masperado/.miktex/texmfs/install/fonts/type1/pub
+lic/amsfonts/cm/cmex10.pfb></home/masperado/.miktex/texmfs/install/fonts/type1/
+public/amsfonts/cm/cmmi12.pfb></home/masperado/.miktex/texmfs/install/fonts/typ
+e1/public/amsfonts/cm/cmmi6.pfb></home/masperado/.miktex/texmfs/install/fonts/t
+ype1/public/amsfonts/cm/cmmi8.pfb></home/masperado/.miktex/texmfs/install/fonts
+/type1/public/amsfonts/cm/cmr12.pfb></home/masperado/.miktex/texmfs/install/fon
+ts/type1/public/amsfonts/cm/cmr8.pfb></home/masperado/.miktex/texmfs/install/fo
+nts/type1/public/amsfonts/cm/cmsy10.pfb></home/masperado/.miktex/texmfs/install
+/fonts/type1/public/amsfonts/cm/cmsy6.pfb></home/masperado/.miktex/texmfs/insta
+ll/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/masperado/.miktex/texmfs/ins
+tall/fonts/type1/public/amsfonts/latxfont/line10.pfb></home/masperado/.miktex/t
+exmfs/install/fonts/type1/public/amsfonts/symbols/msam10.pfb></home/masperado/.
+miktex/texmfs/install/fonts/type1/urw/courier/ucrr8a.pfb></home/masperado/.mikt
+ex/texmfs/install/fonts/type1/urw/times/utmb8a.pfb></home/masperado/.miktex/tex
+mfs/install/fonts/type1/urw/times/utmr8a.pfb></home/masperado/.miktex/texmfs/in
+stall/fonts/type1/urw/times/utmri8a.pfb>
+Output written on diplomski.pdf (45 pages, 1666624 bytes).
+PDF statistics:
+ 221 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+

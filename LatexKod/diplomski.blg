@@ -1,0 +1,54 @@
+This is BibTeX, Version 0.99d (MiKTeX 2.9.7400)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: diplomski.aux
+The style file: fer.bst
+Database file #1: literatura.bib
+Warning--entry type for "lc0" isn't style-file defined
+--line 54 of file literatura.bib
+Warning--empty journal in SpinningUp2018
+Warning--empty journal in bullet
+Warning--empty journal in kalas
+Warning--empty year in kalas
+Warning--empty journal in sutton
+You've used 14 entries,
+            2773 wiz_defined-function locations,
+            676 strings with 7906 characters,
+and the built_in function-call counts, 8385 in all, are:
+= -- 649
+> -- 844
+< -- 6
++ -- 284
+- -- 270
+* -- 774
+:= -- 1404
+add.period$ -- 49
+call.type$ -- 14
+change.case$ -- 131
+chr.to.int$ -- 14
+cite$ -- 33
+duplicate$ -- 266
+empty$ -- 444
+format.name$ -- 286
+if$ -- 1648
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 11
+newline$ -- 85
+num.names$ -- 56
+pop$ -- 272
+preamble$ -- 1
+purify$ -- 118
+quote$ -- 0
+skip$ -- 260
+stack$ -- 0
+substring$ -- 55
+swap$ -- 16
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 149
+warning$ -- 5
+while$ -- 45
+width$ -- 0
+write$ -- 193
+(There were 6 warnings)

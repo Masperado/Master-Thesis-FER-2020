@@ -1,0 +1,572 @@
+\documentclass[times,utf8,diplomski]{fer}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{algorithmic}
+\usepackage{algorithm2e}
+\usepackage{cancel}
+
+
+
+\begin{document}
+
+\thesisnumber{2149}
+
+\title{Inverzna kinematika manipulatora ostvarena pomoću dubokog potpornog učenja}
+
+\author{Josip Torić}
+
+\maketitle
+
+\izvornik
+
+\zahvala{ Zahvaljujem mentorici izv. prof. dr. sc.~Mariji Seder te suradniku mag. ing.~Filipu Mariću na motivaciji i savjetima prilikom pisanja ovog rada.
+
+	Zahvaljujem svojoj majci i svome ocu koji su me uvijek podržavali.
+
+	Zahvaljujem svojoj djevojci Rebeki što je preživjela samnom ovu godinu.
+}
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%
+\chapter{Uvod}
+
+Živimo u svijetu prepunom informacija, zadataka i problema. Ljudi su tijekom godina evoluirali da se uspješno mogu nositi s ovim svijetom. Ono što ljudi sada žele napraviti je da se i roboti mogu nositi s ovim svijetom. Bez brige, nismo ni približno dogurali do točke kada će roboti nas u potpunosti zamijeniti.
+
+Uzmimo samo jednostavan zadatak na primjer kao što je podizanje objekta s poda. Čovjek vidi objekt, ocjeni kako da ga najlakše uhvati i uzme ga u ruku. Kada bismo robota, odnosno računalo željeli projektirati za takav zadatak, ubrzo bismo uvidjeli da to nije tako jednostavna stvar. Objekti dolaze u svakakvim oblicima i težinama, a obične stvari iz programiranja kao što su for-petlje i if-blokovi tu nam neće previše pomoći.
+
+Računalni znanstvenici su nakon Drugog svjetskog rata krenuli razvijati umjetnu inteligenciju. Umjetna inteligencija je naziv koji pridajemo svakom neživom sustavu koji pokazuje sposobnost snalaženja u novim situacijama. Unutar umjetne inteligencije postoje razna područja istraživanja, a jedan od njih je strojno učenje. Strojno učenje je grana umjetne inteligencije koja se bavi oblikovanjem algoritama koji svoju učinkovitost poboljšavaju na temelju empirijskih podataka. Unutar strojnog učenja postoji također mnogo grana, a jedna od njih, ujedno i jedna od najmlađih, je potporno učenje. Potporno učenje se bavi programskim agentima koji rješavaju zadatke koji su stavljeni pred njih metodom pokušaja i pogrešaka. Agent se nalazi u okruženju te u tom okruženju mu stoje na raspolaganju brojne akcije čiji će rezultat biti prelazak u novo stanje i eventualna nagrada. Upravo zbog tog koncepta, potporno učenje je iznimno pogodno u robotici jer roboti se ipak nalaze u realnom svijetu, a ne virtualnom.
+
+Cilj ovog diplomskog rada je naučiti inverznu kinematiku robotske ruke Jaco uz primjenu dubokog potpornog učenja. Iznijet ću teorijske osnove potpornog učenja, praktične primjene potpornog učenja, izvesti algoritam jednostavnog gradijenta politike te dati opis tri algoritma za gradijent politike. Svaki algoritam se nastavlja na prethodni, a finalni algoritam proksimalne optimizacije politike ću iskoristiti za učenje inverzne kinematike robotske ruke Jaco. Problem koji ruka rješava je dohvat loptice u prostoru, prvo bez prepreka te zatim s preprekama. Istraživački dio diplomskog zadatka sastoji se od isprobavanja različitih funkcija nagrade za robotsku ruku koje zatim služe algoritmu potpornog učenje pri treniranju modela.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%
+\chapter{Teorijske osnove potpornog učenja}
+\section{Osnove potpornog učenja}
+\subsection{Koncept potpornog učenja}
+
+Potporno učenje je grana strojnog učenja koja proučava agente i kako oni uče na temelju pokušaja i pogreške. Ono formalizira ideju da nagrađivanje, odnosno kažnjavanje agenta potiče ponavljanje, odnosno izbjegavanje određenog ponašanja u budućnosti.
+
+Potporno učenje je u zadnjih par godina doživjelo uzlet. Korišteno je da bi se računalo naučilo kako kontrolirati robota bilo to u simulaciji, bilo u realnom svijetu, no vjerojatno najpoznatije korištenje potpornog učenja u posljednje vrijeme je bilo stvaranje napredne umjetne inteligencije koja je sposobna igrati strateške igre kao što su šah ili Go ili pak da bude sposobna igrati računalne strateške igre kao što je Dota 2. Umjetna inteligencija koja je proizašla iz ovog potpornog učenja nije samo bila sposobna igrati dotičnu igru, ona je postala najbolja na svijetu u toj igri stvarajući dosad ljudskom umu nezamislive taktike i principe.
+
+Osnovna ideja potpornog učenja je da postoji agent u svojem okruženju. To okruženje može biti bilo što, šahovska ploča, pikseli na ekranu ili pak realni svijet. Agent se u svakom trenutku nalazi u nekom stanju, zatim poduzima neku akciju koja ga odvodi u sljedeće stanje. Ako je došao u dobro stanje, nagradimo ga, a ako je pak došao u loše stanje kaznimo ga. Na temelju toga gradimo politiku odabira akcija agenta. Odabir politike odabira akcija agenta je zapravo potporno učenje \citep{sutton}.
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=\columnwidth]{img/agent-environment.png}
+	\caption{Odnos agent i okruženja.\protect\footnotemark}
+	\label{fig:agenta}
+\end{figure}
+\footnotetext{Preuzeto sa \url{https://spinningup.openai.com}}
+
+
+
+\subsection{Duboko potporno učenje}
+
+Politike odabira akcija se spremaju u funkcije. Funkcija na ulaz prima stanje prostora te na izlaz vraća akciju. No, kao i svaka funkcija ona je ograničena s parametrima i klasom funkcija koje pripada. Zbog toga u prošlosti, potporno učenje je imalo limitirane primjene.
+
+Pravi proboj u potpornom učenju se dogodio kada su počeli umjesto funkcije aproksimirati dubokim neuronskim mrežama. Duboka neuronska mreža sastoji se od proizvoljnog broja slojeva koji sadrže proizvoljan broj neurona. Svaki neuron prima ulaze iz neurona prethodnog sloja, nad tim ulazima izračunava neku funkciju sa svojim parametrima i dobiveni rezultat prosljeđuje neuronima sljedećeg sloja. Na prvi neuronski sloj prosljeđujemo ulaze, a sa zadnjeg neuronskog sloja očitavamo izlaze iz neuronske mreže. Ovako koncipirana mreža u stanju je naučiti gotovo sve zamislive funkcije te se pretvoriti u funkcije koje uopće nije moguće opisati matematičkim formulama. Laički govoreći, duboka neuronska mreža ponaša se poput ljudskog mozga.
+
+
+
+\section{Osnovni pojmovi potpornog učenja}
+
+Kako bi uspješno razumjeli potporno učenje, potrebno je da razumijemo osnovne pojmove potpornog učenja.
+
+\subsection{Stanje i opservacija}
+
+Stanje predstavlja kompletan opis trenutnog stanja svijeta. Ne postoji informacija u svijetu koja je skrivena od stanja.
+
+Opservacija predstavlja opis svijeta koje agent vidi. Ako agent je u stanju vidjeti stanje svijeta kroz opservaciju, kažemo da je okruženje viđeno u potpunosti. Ako agent vidi samo dio svijeta, kažemo da je okruženje djelomično viđeno.
+
+U dubokom potpornom učenju gotovo uvijek stanja i opservacije predstavljamo realnim vektorima, matricama ili tenzorima višeg reda. Naprimjer, slika se može predstaviti kao RGB matrica piksela, dok se stanje robota može predstaviti kutevima zglobova ili trenutnom brzinom.
+
+\subsection{Prostor akcija}
+
+Sve dozvoljene akcije u nekom okruženju predstavljaju prostor akcija. Prostor akcija može biti diskretan ili kontinuiran.
+
+Okruženja poput šahovske ploče, igre na starim konzolama poput Atari-a ili ploče za igru Go predstavljaju diskretan prostor akcija. Iz svakog stanja postoji konačan broj akcija koje agent može poduzeti.
+
+Robot u realnom svijetu se nalazi u kontinuiranom prostoru akcija. Iz svakog stanja mu je na raspolaganju beskonačno mnogo akcija koje može poduzeti. U kontinuiranom prostoru akcija, akcije su predstavljene realnim vektorima.
+
+\subsection{Politika}
+
+Politika je pravilo prema kojem agent određuje koju će akciju odabrati. Ona može biti deterministička ili stohastička. Politika je, suštinski govoreći, mozak agenta.
+
+Deterministička politika je uobičajeno označava sa ${\mu}$:
+
+\begin{equation}
+	\label{deterministic policy}
+	a_t = \mu(s_t)
+\end{equation}
+
+\noindent gdje ${a_t}$ označava akciju, a ${s_t}$ stanje svijeta. Stohastička politika se uobičajeno označava sa ${\pi}$:
+
+\begin{equation}
+	\label{stochastic policy}
+	a_t \sim \pi(\cdot | s_t)
+\end{equation}
+
+\noindent gdje ${a_t}$ također označava akciju, a ${s_t}$ stanje svijeta.
+
+U dubokom potpornom učenju politike su parametrizirane s parametrima neuronske mreže i možemo ih trenirati s algoritmima za treniranje neuronske mreže. Parametre najčešće označavamo s ${\theta}$ ili ${\phi}$ te onda možemo pisati:
+
+\begin{equation}
+	\label{neural network policy}
+	\begin{aligned}
+		a_t = \mu_{\theta}(s_t) \\
+		a_t \sim \pi_{\theta}(\cdot | s_t)
+	\end{aligned}
+\end{equation}
+
+\noindent čime označavamo da je politika ovisna o parametrima neuronske mreže.
+
+\subsection{Putanja}
+
+Putanja je slijed stanja i akcija koje se događaju u okruženju.
+
+\begin{equation}
+	\label{trajectory}
+	\tau = (s_0, a_0, s_1, a_1, ...).
+\end{equation}
+
+\noindent gdje ${\tau}$ predstavlja putanju. Početno stanje se uvijek slučajno izabire.
+
+Prijelazi u sljedeće stanje su uvjetovani prirodnim zakonima okruženja i ovise samo o posljednjoj akciji. Prijelazi mogu biti deterministički ili stohastički.
+
+
+\subsection{Nagrada}
+
+Nagrada predstavlja vrijednost kojom ćemo nagraditi agenta ako poduzme neku akciju u nekom stanju.
+
+
+\begin{equation}
+	\label{reward}
+	r_t = R(s_t, a_t, s_{t+1})
+\end{equation}
+
+\noindent gdje ${r_t}$ predstavlja vrijednost nagrade, a ${R}$ funkciju nagrade. Ovaj izraz se često pojednostavljuje kao funkcija trenutnog stanja ${r_t = R(s_t)}$ ili funkcija trenutnog stanja i akcije ${r_t = R(s_t,a_t)}$.
+
+Cilj agenta je maksimizirati ukupnu nagradu duž putanje. U maksimiziranju nagrade nailazimo na dva principa, ovisno imamo li konačnu ili beskonačnu putanju. U slučaju konačne putanje dovoljno je samo sumirati sve nagrade duž putanje prema formuli:
+
+\begin{equation}
+	\label{finite reward}
+	R(\tau) = \sum_{t=0}^T r_t.
+\end{equation}
+
+\noindent a kod beskonačne putanje potrebno je nagradu ipak skalirati s faktorom propadanja ${\gamma \in (0,1)}$:
+
+\begin{equation}
+	\label{infinite reward}
+	R(\tau) = \sum_{t=0}^{\infty} \gamma^t r_t.
+\end{equation}
+
+\noindent gdje ${\gamma}$ predstavlja faktor propadanja.
+
+U mnogo problema nemamo nagradu nego kaznu, koju označimo s ${p_t}$. Problem potpornog učenja onda možemo shvatiti kao maksimizator negativne kazne, čime će cilj agenta biti nagradu približiti što moguće bliže nuli.
+
+\begin{equation}
+	\label{finite punishment}
+	R(\tau) = \sum_{t=0}^T -p_t.
+\end{equation}
+
+
+\subsection{Problem potpornog učenja}
+
+Problem potpornog učenja je odabrati optimalnu politiku koja će maksimizirati očekivanu nagradu kada se agent ponaša u skladu s odabranom politikom. Matematička formulacija tog problema polazi od vjerojatnosti odabira pojedine putanje uz danu politiku koja glasi:
+\begin{equation}
+	\label{probability trajectory}
+	P(\tau|\pi) = \rho_0 (s_0) \prod_{t=0}^{T-1} P(s_{t+1} | s_t, a_t) \pi(a_t | s_t)
+\end{equation}
+
+\noindent gdje ${P}$ predstavlja vjerojatnost odabira putanje uz danu politiku. Očekivana ukupna nagrada se onda može iskazati prema formuli:
+
+\begin{equation}
+	\label{ukupna nagrada}
+	J(\pi) = \int_{\tau} P(\tau|\pi) R(\tau) = \underset{\tau\sim \pi} E[{R(\tau)}]
+\end{equation}
+
+\noindent gdje ${J(\pi)}$ predstavlja ukupnu nagradu za danu politiku, a ${\underset{\tau\sim \pi}E}$ putanju s danom politikom. Optimizacijski problem se onda može iskazati kao:
+
+\begin{equation}
+	\label{optimizacijski problem}
+	\pi^* = \arg \max_{\pi} J(\pi)
+\end{equation}
+
+\noindent gdje ${\pi^*}$ predstavlja optimalnu politiku.
+
+\subsection{Funkcije vrijednosti}
+
+U potpornom učenju je često korisno znati vrijednost pojedinog stanja ili stanja i akcije koja slijedi. Vrijednost stanja označava očekivanu nagradu koju dobijemo ako krenemo iz tog stanja i onda uvijek postupamo po nekoj politici.
+
+Postoje 4 glavne vrijednosne funkcije. Prva funkcija glasi:
+
+\begin{equation}
+	\label{prva vrijednosna}
+	V^{\pi}(s) = \underset{\tau \sim \pi} E [{R(\tau)\left| s_0 = s\right.}]
+\end{equation}
+
+\noindent gdje ${V^{\pi}(s)}$ predstavlja vrijednosnu funkciju. Ova funkcija predstavlja očekivanu nagradu ako krenemo iz stanja ${s}$ i uvijek se ponašamo prema politici ${\pi}$.
+
+
+\begin{equation}
+	\label{druga vrijednosna}
+	Q^{\pi}(s,a) = \underset{\tau \sim \pi}E[{R(\tau)\left| s_0 = s, a_0 = a\right.}]
+\end{equation}
+
+\noindent Ova funkcija predstavlja očekivanu nagradu ako krenemo iz stanja ${s}$, odaberemo akciju ${a}$ i zatim se ponašamo prema politici ${\pi}$.
+
+\begin{equation}
+	\label{treća vrijednosna}
+	V^*(s) = \max_{\pi} \underset{\tau \sim \pi}E[{R(\tau)\left| s_0 = s\right.}]
+\end{equation}
+
+\noindent Ova funkcija predstavlja očekivanu nagradu ako krenemo iz stanja ${s}$ i uvijek se ponašamo prema optimalnoj politici.
+
+\begin{equation}
+	\label{četvrta vrijednosna}
+	Q^*(s,a) = \max_{\pi} \underset{\tau \sim \pi}E[{R(\tau)\left| s_0 = s, a_0 = a\right.}]
+\end{equation}
+
+\noindent Ova funkcija predstavlja očekivanu nagradu ako krenemo iz stanja ${s}$, odaberemo akciju ${a}$ i zatim se ponašamo prema optimalnoj politici.
+
+Iz ovih funkcija se može još definirati i funkcija prednosti koja glasi:
+
+\begin{equation}
+	\label{funckija prednosti}
+	A^{\pi}(s,a) = Q^{\pi}(s,a) - V^{\pi}(s)
+\end{equation}
+
+\noindent gdje ${A^{\pi}(s,a)}$ predstavlja prednosti za dano stanje i akciju. Ova funkcija nam govori koliko je dana akcija bolja od ostalih akcija u prosjeku.
+
+
+Ove sve funkcije zadovoljavaju rekurzivne Bellmanove jednadžbe:
+
+\begin{equation}
+	\label{belman 1}
+	V^{\pi}(s) = \underset{a \sim \pi \\ s'\sim P}E[{r(s,a) + \gamma V^{\pi}(s')}]
+\end{equation}
+
+\begin{equation}
+	\label{belman 2}
+	Q^{\pi}(s,a) = \underset{s'\sim P}E[{r(s,a) + \gamma \underset{a'\sim \pi}E[{Q^{\pi}(s',a')}}]]
+\end{equation}
+
+\begin{equation}
+	\label{belman 3}
+	V^*(s) = \max_a \underset{s'\sim P}E[{r(s,a) + \gamma V^*(s')}]
+\end{equation}
+
+\begin{equation}
+	\label{belman 4}
+	Q^*(s,a) = \underset{s'\sim P}E[{r(s,a) + \gamma \max_{a'} Q^*(s',a')}]
+\end{equation}
+
+\noindent Sve Bellmanove jednadžbe govore istu stvar, a to je da vrijednost početnog stanja se sastoji od nagrade što se nalazimo u tom stanju zbrojena s vrijednosti svih stanja u kojima ćemo se naći u sljedećim koracima.
+
+\section{Podjela algoritama potpornog učenja}
+
+Algoritmi potpornog učenja dijele se na algoritme s modelom i algoritme bez modela. U algoritmima s modelom poznat je model okruženja, dok u algoritmima bez modela nije poznat model okruženja.
+
+Prednost algoritama s modelom je ta što je moguće promatrati više stanja i akcija unaprijed jer se unaprijed zna u kojem će se stanju završiti za pojedinu akciju. Algoritmi s modelom se dijele na algoritme u kojima se pokušava naučiti model svijeta te na one algoritme u kojima je model unaprijed poznat. No, učenje modela je također iznimno težak problem te postoji velika mogućnost da se agent odlično ponaša u naučenom modelu, ali se ponaša loše u stvarnom okruženju jer je pristrano naučio model svijeta. Algoritmi s modelom se odlično ponašaju upravo u slučaju kada model postoji. Najbolji primjer ovoga je algoritam AlphaZero koji je uspio pobijediti svjetskog prvaka u igri Go te postati najbolji računalni program za igranje šaha.
+
+Algoritmi bez modela su prilagođeniji realnom svijetu i kao takvi su više razvijeniji nego algoritmi s modelom. Oni se dijele na algoritme optimizacije politike gdje se pokušava naći optimalna politika te algoritme Q-učenja gdje se pokušava aproksimirati optimalna Q-funkcija.
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=\columnwidth]{img/podjela.png}
+	\caption{Podjela algoritama dubokog potpornog učenja.\protect\footnotemark}
+	\label{fig:podjela}
+\end{figure}
+\footnotetext{Preuzeto sa \url{https://spinningup.openai.com}}
+
+U ovom diplomskom radu ću se koncentrirati na algoritme bez modela. Model stvarnog svijeta u kojem postoji robotska ruka ili simulator u kojem se nalazi robotska ruka je gotovo nemoguće izgraditi jer se radi o kontinuiranom realnom svijetu. Položaj objekata se mijenja, pod utjecajem je stvarnih sila te kada bi i pokušali izgraditi model stvarnog svijeta on bi bio užasno kompliciran i vjerojatno loše estimirao stvarni svijet. Zbog toga ću koristiti algoritme bez modela i to algoritme optimizacije politike jer su prilagođeniji problemu inverzne kinematike. Algoritmi optimizacije politike direktno optimiziraju cilj koji želimo, dok Q-učenje prvenstvo želi zadovoljiti Bellmanove jednadžbe, a cilj opitmizira indirektno.
+
+%%%%%
+\chapter{Praktične primjene potpornog učenja}
+
+\section{Primjene u igranju šaha}
+
+Šah je društvena igra za svoje na ploči koja postoji već stotinama godina. Igra se na ploči od 64 polja, a svaki igrač kontrolira 16 figura. Postoji otprilike ${10^{120}}$ mogućih šahovskih partija te iz ovoga vidimo da je nemoguće riješiti problem pobjede u šahu sa čistim pretraživanjem prostora.
+
+Većina današnjih računalnih programa za igranje šaha ipak počiva na nekom principu pretraživanja prostora, naravno poboljšanim s raznim heuristikama. Najbolji programi su u stanju pretraživati i do 70 milijuna poteza u sekundi. To je naravno i više nego dovoljno da se pobjedi najbolji svjetski šahovski velemajstor, ali duboko potporno učenje je pokazalo da možemo i bolje igrati šah nego što nam to dozvoljava čista procesorska snaga.
+
+Algoritmi bazirani na dubokom potpornom učenju, kao što su AlphaZero i Leela Chess Zero, uspjeli su kombinirati računalnu snagu s ljudskom intuicijom. Algoritmi su naučeni tako da su im unesena osnovna pravila šaha, dakle poznat im je model svijeta, okruženje i moguće akcije iz svakog stanja. Nakon toga, učenje s obavlja da algoritam igra sam protiv sebe i tako poboljšava svoju igru.
+
+Jednom naučen algoritam, koji se naravno poboljšava iz sekunde u sekundu, u stanju je pobijediti apsolutno svakoga, kako čovjeka tako i programe bazirane na pretraživanju stanja. Algoritam ne pretražuje ni približno puno poteza kao program baziran na pretraživanju stanja, on pretraživa naime samo oko 80 tisuća poteza. Međutim, on pretražuje samo poteze koji imaju smisla s obzirom na politiku s kojom je naučen. Na ovaj način, algoritam je uspio potvrditi optimalnost nekih ljudskih ideja u šahu, ali isto tako i odbacio je neke ideje stare stotinu godina. Promatranje algoritama baziranih na potpornom učenju dok igraju šah, omogućava ljudima da poprave vlastitu igru tako što će krenuti razmatrati neke ideje koje su se prije činile besmislene \citep{alphazero}.
+
+\section{Primjene u igranju računalnih igara}
+
+Računalne igre, za razliku od igara na ploči, su korak bliže realnom svijetu. Nemoguće je izraditi model računalne igre, pogotovo u situacijama kada igru igraju više od 2 igrača. Iz ovog razloga, znanstvenicima koji se bave dubokim potpornim učenjem iznimno je zanimljivo vidjeti kako će se algoritmi ponašati u ovim situacijama jer zaključke koje pronađu u ovoj domeni pomoći će im u primjenama u realnom svijetu.
+
+Vjerojatno jedna od najpoznatijih primjena dubokog potpornog učenja u zadnje vrijeme je kada je skupina znanstvenika okupljena u OpenAI timu razvila botove koji su postali bolji od svjetskih prvaka u računalnoj igri Dota 2. Dota 2 je igra koja se igra u 2 tima, a svaki tim čini 5 igrača. Svaki igrač upravlja jednim herojem (u igri trenutno postoji 117 heroja) te je cilj srušiti protivničku bazu. Svaki igrač tijekom same partije, koja traje u prosjeku oko 35 minuta, kupuje razne predmete koji poboljšavaju vlastitog heroja, a novac za predmete zarađuje tako što ubija protivničke heroje ili neutralna čudovišta. Iz ovog jednostavnog opisa same igre, može se vidjeti da je ovo izuzetno težak problem za modelirati uobičajenim računarskim načinima.
+
+Algoritam koji su razvili u OpenAI timu, prima informacije iz same igre 7 puta u jednoj sekundi. Informacije se sastoje od stanja vlastitog tima, stanja protivničkog tima i stanja same mape. Sve ove informacije vidi i stvarni igrač koji igra samu igru, algoritam ne vidi ništa više niti manje. Na temelju tih informacija, algoritam uz pomoć utrenirane politike koja je predstavljena neuronskom mrežom, na izlaz izbacuje akciju koju treba sljedeću poduzeti. Impresivna stvar je ta što ne igra samo jedna instanca algoritma, već igraju 5 instanci koje međusobno surađuju.
+
+Slično kao i u robotskim zadacima, algoritmu je zadana funkcija nagrade koja nagrađuje pobjedu protiv drugog time, ubojstvo protivničkog igrača, skupljanje zlatnika i ostale stvari koje su prisutne u samoj igri. Treniranje se odvijalo tako što je igrao igru sam protiv sebe. U prvim epohama, heroji su besmisleno šetali po mapi, nakon prvih par sati počeli su se pojavljivati koncepte koje viđamo u ljudskim partijama, a nakon nekoliko dana algoritam je pokazao i napredne taktike. Nakon 10 mjeseci svakodnevnog treniranja, algoritam je bio u stanju potpuno nadigrati svjetske prvake u ovoj igri i to s taktikama koje su prvi put viđene u 10 godina postojanja ove igre.
+
+Jedan od čestih benchmarkova za evaluiranje rada različitih algoritama dubokog potpornog učenja je igranje igara na konzoli Atari 2600. Konzola Atari 2600 izašla je 1977. godine i doživjela ogromnu popularnost. Razlog zašto se koriste igre na ovoj konzoli je taj što je model same igre najčešće složen te nije optimalno primjeniti algoritme s modelom, opservacija se sastoji od samo 128 piksela, a akcija se sastoji od diskretnih varijabli koje označavaju pomak joysticka ili pritisak na crveni gumb kontrolera. Postoji mnogo različitih igara za Atari konzolu koje su sve ostvarene u emulatoru te je iznimno uspostaviti cjevovod treniranja.
+
+\section{Primjene u robotici}
+
+Robotika je sigurno najzanimljivije i najkorisnije područje primjene dubokog potpornog učenja jer kod robota okruženje je stvarni svijet i njihove akcije imaju posljedice u stvarnom svijetu. No, zbog prirode svijeta i fizičkih zakona koji ovdje vladaju, ovo područje je definitivno i najkompliciranije.
+
+Robotu su najčešće dostupne informacije o položaju u kojem se nalazi, zatim o kutevima zglobova koji ga pokreću, trenutnoj brzini, brzini zglobova, preprekama u prostoru, itd. Na temelju tih informacija, uz pomoć istrenirane politike, određuje koja će mu biti sljedeća akcija. Jedan od najvećih problema vezano za robotiku je nepraktičnost treniranja robota. U stvarnom svijetu je gotovo nemoguće trenirati algoritam zbog ograničenih resursa te jedina mogućnost postaje simulator kojeg nije uvijek baš lako izraditi  \citep{kalas}.
+
+Glavni zadatak ovog diplomskog rada je naučiti inverznu kinematiku robotske ruke Jaco prilikom dohvaćanja loptice iz okruženja, prvo bez prepreka te zatim s preprekama. Robotska ruka je fiksirana te ima informaciju o trenutnom položaju vrha ruke, položaju loptice i položaju prepreka. Robot ima 6 zglobova koji pomiču robotsku ruku, a robotom se upravlja tako da mu se zadaju brzine tih zglobova.
+
+Originalna tema ovog seminarskog rada je bila manipulacija robota Jaco primjenom potpornog učenja. No, odlučio sam kroz seminar se upoznati s metodama potpornog učenja te kroz seminarski rad napraviti pregled ovog područja. U budućnosti, smatram da se sigurno neki problemi koji se pojavljuju kod robota Jaco, kao što su premještanje objekata, može učinkovito riješiti s algoritmima dubokog potpornog učenja.
+
+%%%%%%%%%%%%%%%%%%%5
+
+\chapter{Algoritmi gradijenta politike}
+\section{Izvod jednostavnog gradijenta politike}
+
+Osnova za algoritme gradijenta politike je izvod gradijenta politike. Gradijent se može izvesti na sljedeći način:
+
+\begin{align*}
+	\label{izvod}
+	 & \nabla_{\theta} J(\pi_{\theta}) = \nabla_{\theta} \underset{\tau \sim \pi_{\theta}}E[{R(\tau)}]                                                           &                                            \\
+	 & = \nabla_{\theta} \int_{\tau} P(\tau|\theta) R(\tau)                                                                                                      & \text{Proširimo očekivanje}                \\
+	 & = \int_{\tau} \nabla_{\theta} P(\tau|\theta) R(\tau)                                                                                                      & \text{Dovedimo gradijent unutar integrala} \\
+	 & = \int_{\tau} P(\tau|\theta) \nabla_{\theta} \log P(\tau|\theta) R(\tau)                                                                                  & \text{Logaritamski trik}                   \\
+	 & = \underset{\tau \sim \pi_{\theta}}E[{\nabla_{\theta} \log P(\tau|\theta) R(\tau)}]                                                                       & \text{Vraćanje u očekivanje}               \\
+	 & = \underset{\tau \sim \pi_{\theta}}E[{\nabla_{\theta} (\log \rho_0 (s_0) + \sum_{t=0}^{T} ( \log P(s_{t+1}|s_t, a_t)}]  +                                                                              \\
+	 & \underset{\tau \sim \pi_{\theta}}E[{\log \pi_{\theta}(a_t |s_t))) R(\tau)}]                                                                               & \text{Proširimo log-vjerojatnost putanje}  \\
+	 & = \underset{\tau \sim \pi_{\theta}}E[{( \cancel{\nabla_{\theta}\log \rho_0 (s_0)} + \sum_{t=0}^{T} ( \cancel{\nabla_{\theta}\log P(s_{t+1}|s_t, a_t)}}] +                                              \\
+	 & \underset{\tau \sim \pi_{\theta}}E[{\nabla_{\theta}\log \pi_{\theta}(a_t |s_t)) R(\tau)}]                                                                 & \text{Dovedimo gradijent}                  \\
+	 & \therefore \nabla_{\theta} J(\pi_{\theta}) = \underset{\tau \sim \pi_{\theta}}E[{\sum_{t=0}^{T} \nabla_{\theta} \log \pi_{\theta}(a_t |s_t) R(\tau)}]     & \text{Gradijent putanje}
+\end{align*}
+
+\noindent gdje ${\nabla}$ označava gradijent. Ovo je očekivanje, što znači da ga možemo estimirati s prosjekom uzorka. Skupimo putanje iz okoline, za svaku pronađemo gradijent te uzmemo aritmetičku sredinu svih uzoraka.
+
+\begin{equation}
+	\label{aritmeticka svih uzoraka}
+	\hat{g} = \frac{1}{|\mathcal{D}|} \sum_{\tau \in \mathcal{D}} \sum_{t=0}^{T} \nabla_{\theta} \log \pi_{\theta}(a_t |s_t) R(\tau),
+\end{equation}
+
+\noindent gdje ${\mathcal{D}}$ skup trajektorija. Moguće je pokazati da se funkcija nagrade može zamijeniti i s funkcijom prednosti.
+
+
+\section{Algoritam jednostavnog gradijenta politike}
+
+Algoritam jednostavnog gradijenta politike je osnovni algoritam dubokog potpornog učenja. On izravno koristi izvod gradijenta politike, samo što umjesto funkcije nagrade koristi funkciju prednosti.
+
+Pseudokod algoritma je sljedeći:
+
+\begin{algorithm}[H]
+	\caption{Algoritam jednostavnog gradijenta politike}
+	\label{alg1}
+	\begin{algorithmic}[1]
+		\STATE Ulaz:  Inicijalni parametri politike $\theta_0$, inicijalni parametri funkcije vrijednosti $\phi_0$
+		\FOR{$k = 0,1,2,...$}
+		\STATE Prikupimo listu putanja ${\mathcal D}_k = \{\tau_i\}$ prateći politiku $\pi_k = \pi(\theta_k)$ u okruženju.
+		\STATE Izračunajmo nagrade $\hat{R}_t$.
+		\STATE Izračunajmo funkciju prednosti $\hat{A}_t$ koristeći trenutnu funkciju vrijednosti $V_{\phi_k}$.
+		\STATE Izračunajmo gradijent prema formuli:
+		\begin{equation*}
+			\hat{g}_k = \frac{1}{|{\mathcal D}_k|} \sum_{\tau \in {\mathcal D}_k} \sum_{t=0}^T \left. \nabla_{\theta} \log\pi_{\theta}(a_t|s_t)\right|_{\theta_k} \hat{A}_t.
+		\end{equation*}
+		\STATE Izračunajmo nove parametre uz pomoć gradijentnog spusta:
+		\begin{equation*}
+			\theta_{k+1} = \theta_k + \alpha_k \hat{g}_k,
+		\end{equation*}
+		\STATE Izračunajmo nove parametre funkcije vrijednosti
+		\begin{equation*}
+			\phi_{k+1} = \arg \min_{\phi} \frac{1}{|{\mathcal D}_k| T} \sum_{\tau \in {\mathcal D}_k} \sum_{t=0}^T\left( V_{\phi} (s_t) - \hat{R}_t \right)^2,
+		\end{equation*}
+		\ENDFOR
+	\end{algorithmic}
+\end{algorithm}
+
+\bigskip
+
+Algoritam koristi dvije neuronske mreže. Jedna se koristi za funkciju politike, ona na ulaz prima opservaciju, a na izlaz šalje akciju, a druga se koristi za funkciju vrijednosti koja na ulaz prima opservaciju, a na izlaz šalje broj koji predstavlja vrijednost funkcije. Ako ćemo biti precizniji, neuronska mreža za politiku na izlaz šalje vjerojatnosti poduzimanja pojednih akcija iz kojih onda algoritam odabire akciju koju će poduzeti te je zbog toga ona stohastička politika. Ovo je bitno zbog računanja funkcije prednosti koja predstavlja razliku između nagrade pridobivene s putanjom kroz okruženje i nagrade koju nam je vratila funkcija vrijednosti. U prijevodu, funkcija prednosti nam govori koliko je akcija koju smo poduzeli bolja od akcije koju bi najčešće poduzeli.
+
+Ako sad bolje pogledamo sada funkciju pogreške, možemo shvatiti što ona zapravo radi. Ako je akcija bila bolja nego prosječna akcija, povećat ćemo vjerojatnost da u budućnosti opet napravimo tu akciju, a ako je akcija bila lošija nego prosječna akcija, smanjit ćemo vjerojatnost da u budućnosti opet napravimo tu akciju. Ovaj algoritam iako jednostavan, predstavlja osnovu svih algoritama dubokog potpornog učenja \citep{schulman}.
+
+\section{Algoritam optimizacije politike uz regije povjerenja}
+
+Problem koji nastaje pri algoritmu jednostavnog gradijenta politike je taj što je previše nestabilan. Razlog tome je što nitko ne brani modelu da radikalno promjeni politiku iz koraka u korak. U početnim koracima algoritma, model se ponaša prilično nasumično te ima puno politika koje su bolje od trenutačne iako su sigurno suboptimalne. No, kako se prikupljanje i treniranje podataka događa istodobno, imamo situaciju ako odemo u suboptimalnu politiku, prikupljeni podatci će nam također biti suboptimalni, a to će rezultirati tome da ćemo jako sporo ili nikako doći do globalnog optimuma politike.
+
+Ovaj problem se rješava na način da ograničimo algoritmu koliko smije u pojedinom koraku promjeniti politiku. Način na koji je ostvareno u algoritmu optimizacije politike uz regije povjerenja je da ograničimo Kullback-Leiblerovu udaljenost između trenutne i sljedeće politike. Kullback-Leiblerova udaljenost se računa na sljedeći način:
+
+\begin{equation}
+	\label{Kullback - Leibler}
+	D_\text{KL}(P \parallel Q) = \sum_{x\in\mathcal{X}} P(x) \log\left(\frac{P(x)}{Q(x)}\right),
+\end{equation}
+
+\noindent gdje ${P(x)}$ predstavlja jednu politiku, a ${Q(x)}$ drugu politiku. Funkcija gubitka ovog algoritma je definirana u obliku:
+
+\begin{equation}
+	\label{TRPO loss}
+	{\mathcal L}(\theta_k, \theta) = \underset{s,a \sim \pi_{\theta_k}}E[\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)} A^{\pi_{\theta_k}}(s,a)],
+\end{equation}
+
+\noindent uz ograničenje da Kullback-Leiberova udaljenost ne smije biti veća od zadanog hiperparametra ${\delta}$. U ovoj funkciji gradijent logaritma politke je zamijenjen s kvocijentom između stare i nove politike, a matematički je moguće dokazati da je to identična stvar za problem optimizacije politike. Rješenje ovog sustava se dobije uz pomoć Lagrangeove dualne metode i ono glasi:
+
+\begin{equation}
+	\label{TRPO rješenje}
+	\theta_{k+1} = \theta_k + \alpha^j \sqrt{\frac{2 \delta}{g^T H^{-1} g}} H^{-1} g,
+\end{equation}
+
+\noindent gdje je ${g}$ gradijent trenutne politike izračunat iz podataka prikupljenim novom politikom, ${H}$ Hesseova matrica trenutne politike izračunata iz podataka prikupljenih novom politikom, ${\alpha}$ broj između 0 ili 1, a ${j}$ najmanji nenegativni broj koji će osigurati da Kullback-Leiberova udaljenost bude zadovoljena. Problem koji se nameće u ovome je računanje inverza Hesseove matrice za matrice koje mogu imati veliki broj parametara. Algoritam rješava ovaj problem tako da izračuna vrijednost ${x = H^{-1}g}$ uz pomoć metode konjugatnog gradijenta.
+
+Pseudokod algoritma je sljedeći:
+
+\begin{algorithm}[H]
+	\caption{Algoritam optimizacije politike uz regije povjerenja}
+	\label{alg2}
+	\begin{algorithmic}[1]
+		\STATE Ulaz:  Inicijalni parametri politike $\theta_0$, inicijalni parametri funkcije vrijednosti $\phi_0$
+		\STATE Hiperparametri: Limit KL udaljenosti, koeficijent traženja unazad ${\alpha}$, maksimalan broj koraka traženja unazad K
+		\FOR{$k = 0,1,2,...$}
+		\STATE Prikupimo listu putanja ${\mathcal D}_k = \{\tau_i\}$ prateći politiku $\pi_k = \pi(\theta_k)$ u okruženju.
+		\STATE Izračunajmo nagrade $\hat{R}_t$.
+		\STATE Izračunajmo funkciju prednosti $\hat{A}_t$ koristeći trenutnu funkciju vrijednosti $V_{\phi_k}$.
+		\STATE Izračunajmo gradijent prema formuli:
+		\begin{equation*}
+			\hat{g}_k = \frac{1}{|{\mathcal D}_k|} \sum_{\tau \in {\mathcal D}_k} \sum_{t=0}^T \left. \nabla_{\theta} \log\pi_{\theta}(a_t|s_t)\right|_{\theta_k} \hat{A}_t.
+		\end{equation*}
+		\STATE Uz pomoć algoritma konjugatnog gradijenta izračunajmo:
+		\begin{equation*}
+			\hat{x} \approx \hat{H}_k^{-1}\hat{g}_k
+		\end{equation*}
+		\STATE Izračunajmo nove parametre uz pomoć pretrage unatrag
+		\begin{equation*}
+			\theta_{k+1} = \theta_k + \alpha^j \sqrt{\frac{2 \delta}{\hat{x}_k^T \hat{H}_k \hat{x}_k}} \hat{x}_k
+		\end{equation*}
+		\STATE Izračunajmo nove parametre funkcije vrijednosti
+		\begin{equation*}
+			\phi_{k+1} = \arg \min_{\phi} \frac{1}{|{\mathcal D}_k| T} \sum_{\tau \in {\mathcal D}_k} \sum_{t=0}^T\left( V_{\phi} (s_t) - \hat{R}_t \right)^2
+		\end{equation*}
+		\ENDFOR
+	\end{algorithmic}
+\end{algorithm}
+
+\bigskip
+
+\section{Algoritam proksimalne optimizacije politike}
+
+Algoritam proksimalne optimizacije poltike je motiviran istim problemom kao i algoritam optimizacije politike uz regije povjerenja, a to je koliko najveći korak možemo napraviti pri optimizacije politike bez da slučajno napravimo preveliki korak. Algoritam optimizacije poltike uz regije povjerenja to rješava na način da uvodi ograničenje Kullback-Leiblerove udaljenosti, ali uvođenje tog ograničenja prilično komplicira funkciju pogreške i algoritam.
+
+Algoritam proksimalne optimizacije politike taj problem rješava bez uvođenja ograničenja, već ugrađuje ograničenje u funkciju pogreške. Algoritam se oslanja na podrezivanje funkcije gubitka tako da ne pogura poltiku previše daleko od prethodne politike.
+
+Funkcija pogreške definirana je na sljedeći način:
+
+\begin{equation}
+	\label{PPO loss}
+	\resizebox{0.99\hsize}{!}{$L(s,a,\theta_k,\theta) = \min\left(
+			\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}  A^{\pi_{\theta_k}}(s,a), \;\;
+			\text{clip}\left(\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}, 1 - \epsilon, 1+\epsilon \right) A^{\pi_{\theta_k}}(s,a)
+			\right),$}
+\end{equation}
+
+\noindent gdje ${clip}$ označava funkciju podrezivanja. Ono što ovaj naizgled izraz radi se vrlo jednostavno može objasniti ako ga razdvojimo u dva slučaja, kad je funkcija prednosti pozitivna i kad je negativna. Kad je funkcija prednosti pozitivna, odnosno nova politika je bolja od prethodne, želimo da se pomaknemo u smjeru nove politike, ali opet ne želimo previše da se pomaknemo. Pomaknut ćemo se u smjenu nove politike prema izrazu:
+
+\begin{equation}
+	\small
+	\label{PPO adv gain}
+	\min\left(
+	\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}, (1 + \epsilon)
+	\right),
+\end{equation}
+
+\noindent dakle koliko god nova politika razmjerno udaljenija od prethodne, ali maksimalno ${1+\epsilon}$. Ako je funkcija prednosti negativna, odnosno nova politika je lošija od prethodne, pomaknut ćemo u suprotnom smjeru. Pomaknut ćemo se prema izrazu
+
+
+\begin{equation}
+	\small
+	\label{PPO adv gain}
+	\min\left(
+	\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}, (1 - \epsilon)
+	\right),
+\end{equation}
+
+\noindent dakle vjerojatnost odabira akcija nove politike će se smanjiti u budućnosti, ali opet ne previše.
+
+Pseudokod algoritma je sljedeći:
+
+\begin{algorithm}[H]
+	\caption{Algoritam proksimalne optimizacije politike}
+	\label{alg2}
+	\begin{algorithmic}[1]
+		\STATE Ulaz:  Inicijalni parametri politike $\theta_0$, inicijalni parametri funkcije vrijednosti $\phi_0$
+		\FOR{$k = 0,1,2,...$}
+		\STATE Prikupimo listu putanja ${\mathcal D}_k = \{\tau_i\}$ prateći politiku $\pi_k = \pi(\theta_k)$ u okruženju.
+		\STATE Izračunajmo nagrade $\hat{R}_t$.
+		\STATE Izračunajmo funkciju prednosti $\hat{A}_t$ koristeći trenutnu funkciju vrijednosti $V_{\phi_k}$.
+		\STATE Izračunajmo nove parametre politike
+		\begin{equation*}
+			\phi_{k+1} = \arg \min_{\phi} \frac{1}{|{\mathcal D}_k| T} \sum_{\tau \in {\mathcal D}_k} \sum_{t=0}^T L(s,a,\theta_k,\theta),
+		\end{equation*}
+
+		\noindent gdje je
+		\begin{equation*}
+			\resizebox{0.99\hsize}{!}{$L(s,a,\theta_k,\theta) = \min\left(
+					\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}  A^{\pi_{\theta_k}}(s,a), \;\;
+					\text{clip}\left(\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}, 1 - \epsilon, 1+\epsilon \right) A^{\pi_{\theta_k}}(s,a)
+					\right),$}
+		\end{equation*}
+
+		\STATE Izračunajmo nove parametre funkcije vrijednosti
+		\begin{equation*}
+			\phi_{k+1} = \arg \min_{\phi} \frac{1}{|{\mathcal D}_k| T} \sum_{\tau \in {\mathcal D}_k} \sum_{t=0}^T\left( V_{\phi} (s_t) - \hat{R}_t \right)^2
+		\end{equation*}
+		\ENDFOR
+	\end{algorithmic}
+\end{algorithm}
+
+\bigskip
+
+Upravo ovaj algoritam ću koristiti pri učenju inverzne kinematike robotske ruke Jaco. Algoritam je trenutno jedan od najbolji koji postoje u dubokom potpornom učenju, varijanta ovog algoritma je korištena za učenje igranja igre "Dota 2" te algoritam u većini robotičkih problema pokazuje veoma dobro ponašanje.
+
+\chapter{Inverzna kinematika robotske ruke Jaco}
+\section{Robotski manipulatori}
+\section{Problem dohvaćanja objekta}
+\section{Implementacija manipulatora u simulatoru}
+\section{Funkcije gubitka}
+
+\chapter{Rezultati}
+\section{Rezultati problema bez prepreka}
+\section{Rezultati problema s preprekama}
+\clearpage
+\chapter{Zaključak}
+
+Duboko potporno učenje je jedna od najperspektivnijih grana razvoja umjetne inteligencije. Prije desetak godina, kada je umjetna inteligencija uzela maha, jako mnogo se pričalo o takozvanoj "tehnološkoj singularnosti", točki u vremenu kada će računala poprimiti vlastitu svijest i postati ravnopravna ljudima. No ipak, kad su shvaćena ograničenja umjetne inteligencije, priča o tome je prestala.
+
+No, u zadnjih par godina, kada je duboko učenje uzelo maha, pa tako i duboko potporno učenje, ova tema je ponovno postala aktualna. Ono što se točno dešava unutar same neuronske mreže i na koji način ona uspijeva zaključiti neke stvari, ljudski mozak nije u stanju razumjeti. Mišljenja sam da ako će nas išta dovesti do "tehnološke singularnosti", onda je to duboko potporno učenje. U tom trenutku, duboko potporno učenje neće spadati više u povijest čovječanstva, već u povijest bogova.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{literatura}
+\bibliographystyle{fer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{sazetak}
+
+	Manipulacija robota Jaco uz pomoć potpornog učenja iznimno je kompliciran problem. Cilj ovog rada je bio napraviti pregled područja dubokog potpornog učenja te postaviti temelje za daljnji rad na ovom problemu. Iznesene su teoretske osnove i ključni pojmovi dubokog potpornog učenja i napravljen pregled najvažnijih praktičnih primjena dubokog potpornog učenja.
+
+	\kljucnerijeci{potporno učenje, duboko učenje, duboko potporno učenje, robotika, Jaco}
+\end{sazetak}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\engtitle{Manipulation of robot Jaco using reinforcement learning}
+\begin{abstract}
+
+	Manipulation of robot Jaco using reinforcement learning is a very complicated problem. The aim of this seminar was to provide an overview of deep reinforcement learning and to lay the foundations for further work on this issue. Theoretical basics and key concepts of deep reinforcement support are presented and an overview of the most practical applications of deep supportive learning.
+
+
+	\keywords{reinforcement learning, deep learning, deep reinforcement learning, robotics, Jaco}
+
+	%%%%%%%%%%%%%%%%%%%%5
+\end{abstract}
+\end{document}

@@ -1,0 +1,35 @@
+\babel@toc {croatian}{}
+\contentsline {chapter}{\numberline {1}Uvod}{1}%
+\contentsline {chapter}{\numberline {2}Teorijske osnove potpornog učenja}{3}%
+\contentsline {section}{\numberline {2.1}Osnove potpornog učenja}{3}%
+\contentsline {subsection}{\numberline {2.1.1}Koncept potpornog učenja}{3}%
+\contentsline {subsection}{\numberline {2.1.2}Duboko potporno učenje}{3}%
+\contentsline {section}{\numberline {2.2}Osnovni pojmovi potpornog učenja}{4}%
+\contentsline {subsection}{\numberline {2.2.1}Stanje i opservacija}{4}%
+\contentsline {subsection}{\numberline {2.2.2}Prostor akcija}{5}%
+\contentsline {subsection}{\numberline {2.2.3}Politika}{5}%
+\contentsline {subsection}{\numberline {2.2.4}Putanja}{5}%
+\contentsline {subsection}{\numberline {2.2.5}Nagrada}{6}%
+\contentsline {subsection}{\numberline {2.2.6}Problem potpornog učenja}{7}%
+\contentsline {subsection}{\numberline {2.2.7}Funkcije vrijednosti}{7}%
+\contentsline {section}{\numberline {2.3}Podjela algoritama potpornog učenja}{8}%
+\contentsline {chapter}{\numberline {3}Praktične primjene potpornog učenja}{10}%
+\contentsline {section}{\numberline {3.1}Primjene u igranju šaha}{10}%
+\contentsline {section}{\numberline {3.2}Primjene u igranju računalnih igara}{11}%
+\contentsline {section}{\numberline {3.3}Primjene u robotici}{12}%
+\contentsline {chapter}{\numberline {4}Algoritmi optimizacije politike}{14}%
+\contentsline {section}{\numberline {4.1}Pregled algoritama optimizacije politike}{14}%
+\contentsline {section}{\numberline {4.2}Izvod jednostavnog gradijenta politike}{14}%
+\contentsline {section}{\numberline {4.3}Algoritam jednostavnog gradijenta politike}{15}%
+\contentsline {section}{\numberline {4.4}Algoritam optimizacije politike uz regije povjerenja}{17}%
+\contentsline {section}{\numberline {4.5}Algoritam proksimalne optimizacije politike}{18}%
+\contentsline {chapter}{\numberline {5}Inverzna kinematika robotske ruke Jaco}{21}%
+\contentsline {section}{\numberline {5.1}Robotski manipulatori}{21}%
+\contentsline {section}{\numberline {5.2}Problem dohvaćanja objekta}{22}%
+\contentsline {section}{\numberline {5.3}Implementacija manipulatora u simulatoru}{23}%
+\contentsline {chapter}{\numberline {6}Rezultati}{25}%
+\contentsline {section}{\numberline {6.1}Izlaz agenta}{25}%
+\contentsline {section}{\numberline {6.2}Rezultati problema bez prepreka}{26}%
+\contentsline {section}{\numberline {6.3}Rezultati problema s preprekama}{29}%
+\contentsline {chapter}{\numberline {7}Zaključak}{37}%
+\contentsline {chapter}{Literatura}{39}%

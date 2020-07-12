@@ -1,0 +1,114 @@
+\begin{thebibliography}{14}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Achiam(2018)]{SpinningUp2018}
+Joshua Achiam.
+\newblock {Spinning Up in Deep Reinforcement Learning}.
+\newblock 2018.
+
+\bibitem[Bellman(1952)]{Bellman716}
+Richard Bellman.
+\newblock On the theory of dynamic programming.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 38\penalty0
+  (8):\penalty0 716--719, 1952.
+\newblock ISSN 0027-8424.
+\newblock \doi{10.1073/pnas.38.8.716}.
+\newblock URL \url{https://www.pnas.org/content/38/8/716}.
+
+\bibitem[Berner et~al.(2019)Berner, Brockman, Chan, Cheung, Dębiak, Dennison,
+  Farhi, Fischer, Hashme, Hesse, Józefowicz, Gray, Olsson, Pachocki, Petrov,
+  de~Oliveira~Pinto, Raiman, Salimans, Schlatter, Schneider, Sidor, Sutskever,
+  Tang, Wolski, i Zhang]{openai2019dota}
+Christopher Berner, Greg Brockman, Brooke Chan, Vicki Cheung, Przemysław
+  Dębiak, Christy Dennison, David Farhi, Quirin Fischer, Shariq Hashme, Chris
+  Hesse, Rafal Józefowicz, Scott Gray, Catherine Olsson, Jakub Pachocki,
+  Michael Petrov, Henrique~Pondé de~Oliveira~Pinto, Jonathan Raiman, Tim
+  Salimans, Jeremy Schlatter, Jonas Schneider, Szymon Sidor, Ilya Sutskever,
+  Jie Tang, Filip Wolski, i Susan Zhang.
+\newblock Dota 2 with large scale deep reinforcement learning, 2019.
+
+\bibitem[Brockman et~al.(2016)Brockman, Cheung, Pettersson, Schneider,
+  Schulman, Tang, i Zaremba]{gym}
+Greg Brockman, Vicki Cheung, Ludwig Pettersson, Jonas Schneider, John Schulman,
+  Jie Tang, i Wojciech Zaremba.
+\newblock Openai gym.
+\newblock \emph{CoRR}, abs/1606.01540, 2016.
+\newblock URL \url{http://arxiv.org/abs/1606.01540}.
+
+\bibitem[Coumans(2015)]{bullet}
+Erwin Coumans.
+\newblock Bullet physics simulation.
+\newblock stranica~1, 07 2015.
+\newblock \doi{10.1145/2776880.2792704}.
+
+\bibitem[Dhariwal et~al.(2017)Dhariwal, Hesse, Klimov, Nichol, Plappert,
+  Radford, Schulman, Sidor, Wu, i Zhokhov]{baselines}
+Prafulla Dhariwal, Christopher Hesse, Oleg Klimov, Alex Nichol, Matthias
+  Plappert, Alec Radford, John Schulman, Szymon Sidor, Yuhuai Wu, i Peter
+  Zhokhov.
+\newblock Openai baselines.
+\newblock \url{https://github.com/openai/baselines}, 2017.
+
+\bibitem[Kalashnikov et~al.()Kalashnikov, Irpan, Pastor, Ibarz, Herzog, Jang,
+  Quillen, Holly, Kalakrishnan, Vanhoucke, i Levine]{kalas}
+Dmitry Kalashnikov, Alex Irpan, Peter Pastor, Julian Ibarz, Alexander Herzog,
+  Eric Jang, Deirdre Quillen, Ethan Holly, Mrinal Kalakrishnan, Vincent
+  Vanhoucke, i Sergey Levine.
+\newblock Scalable deep reinforcement learning for vision-based robotic
+  manipulation.
+\newblock 29--31 Oct .
+
+\bibitem[Pascutto i Linscott(2019)]{lc0}
+Gian-Carlo Pascutto i Gary Linscott.
+\newblock Leela chess zero, 2019.
+\newblock URL \url{http://lczero.org/}.
+
+\bibitem[Schulman(2016)]{schulman}
+John Schulman.
+\newblock \emph{Optimizing Expectations: From Deep Reinforcement Learning to
+  Stochastic Computation Graphs}.
+\newblock Doktorska disertacija, EECS Department, University of California,
+  Berkeley, Dec 2016.
+
+\bibitem[Schulman et~al.(2015)Schulman, Levine, Moritz, Jordan, i Abbeel]{trpo}
+John Schulman, Sergey Levine, Philipp Moritz, Michael~I. Jordan, i Pieter
+  Abbeel.
+\newblock Trust region policy optimization.
+\newblock \emph{CoRR}, abs/1502.05477, 2015.
+\newblock URL \url{http://arxiv.org/abs/1502.05477}.
+
+\bibitem[Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, i
+  Klimov]{ppo}
+John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, i Oleg Klimov.
+\newblock Proximal policy optimization algorithms.
+\newblock \emph{CoRR}, abs/1707.06347, 2017.
+\newblock URL \url{http://arxiv.org/abs/1707.06347}.
+
+\bibitem[Siciliano et~al.(2008)Siciliano, Sciavicco, Villani, i
+  Oriolo]{robotics}
+Bruno Siciliano, Lorenzo Sciavicco, Luigi Villani, i Giuseppe Oriolo.
+\newblock \emph{Robotics: Modelling, Planning and Control}.
+\newblock Springer Publishing Company, Incorporated, 1st izdanju, 2008.
+\newblock ISBN 1846286417.
+
+\bibitem[Silver et~al.(2017)Silver, Hubert, Schrittwieser, Antonoglou, Lai,
+  Guez, Lanctot, Sifre, Kumaran, Graepel, Lillicrap, Simonyan, i
+  Hassabis]{alphazero}
+David Silver, Thomas Hubert, Julian Schrittwieser, Ioannis Antonoglou, Matthew
+  Lai, Arthur Guez, Marc Lanctot, Laurent Sifre, Dharshan Kumaran, Thore
+  Graepel, Timothy~P. Lillicrap, Karen Simonyan, i Demis Hassabis.
+\newblock Mastering chess and shogi by self-play with a general reinforcement
+  learning algorithm.
+\newblock \emph{CoRR}, abs/1712.01815, 2017.
+
+\bibitem[Sutton et~al.(1999)Sutton, Mcallester, Singh, i Mansour]{sutton}
+Richard~S. Sutton, David Mcallester, Satinder Singh, i Yishay Mansour.
+\newblock Policy gradient methods for reinforcement learning with function
+  approximation.
+\newblock 1999.
+
+\end{thebibliography}
